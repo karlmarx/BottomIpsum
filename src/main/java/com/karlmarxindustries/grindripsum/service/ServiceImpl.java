@@ -12,6 +12,7 @@ import java.util.Random;
 public class ServiceImpl {
     @Autowired
     DaoImpl dao = new DaoImpl();
+    private int wordCount = 0;
     private List<String> STRING_LIST = dao.getStringList();
     private static final String[] SEN_TERMS = new String[]{".",".",".",".",".",".",".",".","!","?"};
     Random random = new Random(System.currentTimeMillis());
@@ -30,11 +31,49 @@ public class ServiceImpl {
     public String buildSentence(int wordNum) {
         StringBuilder sb = new StringBuilder();
         sb.append(StringUtils.capitalize(getRandomWord()));
+        wordCount ++;
         for (int i=1; i < wordNum; i++) {
             sb.append(WORD_SEPARATOR);
             sb.append(getRandomWord());
+            if (i < (wordNum - 2)) {
+                if (random.nextInt(8) == 7) {
+                    sb.append(PHRASE_SEPARATOR);
+                }
+            }
+            wordCount ++;
         }
         sb.append(SEN_TERMS[random.nextInt(SEN_TERMS.length)]);
+        sb.append(WORD_SEPARATOR);
         return sb.toString();
+    }
+    public String buildParagraph() {
+        int sentenceNum = random.nextInt(2) + 4;
+        StringBuilder sb = new StringBuilder ();
+        for (int i=0; i < sentenceNum; i++) {
+            sb.append(buildSentence());
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+    public String buildParagraphs (int paragraphNum) {
+        StringBuilder sb = new StringBuilder ();
+        for (int i=0; i < paragraphNum; i++) {
+            sb.append(buildParagraph());
+        }
+        return sb.toString();
+    }
+    public String generateNovel () {
+        StringBuilder sb = new StringBuilder ();
+        for (int i=0; wordCount < 50000; i++) {
+            sb.append(buildParagraph());
+        }
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        ServiceImpl service = new ServiceImpl();
+        String novel = service.generateNovel();
+        System.out.println(novel);
     }
 }

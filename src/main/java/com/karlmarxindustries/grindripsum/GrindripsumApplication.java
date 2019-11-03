@@ -8,6 +8,7 @@ public class GrindripsumApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(GrindripsumApplication.class, args);
+
     }
 
 }
