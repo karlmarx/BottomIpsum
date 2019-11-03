@@ -71,9 +71,9 @@ public class ServiceImpl {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        ServiceImpl service = new ServiceImpl();
-        String novel = service.generateNovel();
-        System.out.println(novel);
-    }
+//    public static void main(String[] args) {
+//        ServiceImpl service = new ServiceImpl();
+//        String novel = service.generateNovel();
+//        System.out.println(novel);
+//    }
 }
