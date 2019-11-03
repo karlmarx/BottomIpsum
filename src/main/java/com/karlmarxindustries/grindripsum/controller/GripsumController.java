@@ -1,6 +1,6 @@
 package com.karlmarxindustries.grindripsum.controller;
 
-import com.karlmarxindustries.grindripsum.service.ServiceImpl;
+import com.karlmarxindustries.grindripsum.dao.DaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class GripsumController {
     @Autowired
-    ServiceImpl service;
+     DaoImpl dao;
+
     @GetMapping("/getIpsum")
     public String displayEmployees(HttpServletRequest req, Model model){
         int paragraphNum = Integer.parseInt(req.getParameter("paragraphNum"));
-        String result = service.buildParagraphs(paragraphNum);
+        String result = dao.buildParagraphs(paragraphNum);
         model.addAttribute("result", result);
-        return "index";
+        return "result";
     }
 }
