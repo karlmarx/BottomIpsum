@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+
 @Repository
 public class DaoImpl {
     private final String PHRASE_LIST = "list.txt";
